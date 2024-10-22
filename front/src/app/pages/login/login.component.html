@@ -1,0 +1,32 @@
+<div class="container">
+  <form (submit)="handleSubmit($event)" class="form" [formGroup]="inputGroup">
+    <mat-form-field>
+      <mat-label>Identifiant</mat-label>
+      <input
+        class="input"
+        matInput
+        placeholder="John Doe"
+        formControlName="identifiant"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Enter your password</mat-label>
+        <input matInput required formControlName="password" [type]="hide() ? 'password' : 'text'" />
+        <button
+        class="vBtn"
+          mat-icon-button
+          matSuffix
+          (click)="clickEvent($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide()"
+        >
+          <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+    <mat-checkbox formControlName="isRelogin">Se souvenir de moi</mat-checkbox>
+
+    <button mat-flat-button type="submit">Connexion</button>
+  </form>
+</div>

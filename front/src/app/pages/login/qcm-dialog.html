@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>{{data.question}}</h2>
+<mat-dialog-content>
+        <div *ngFor="let q of data.answears; trackBy: trackBy">
+            <input type="radio" [id]="q" name="drone" (input)="handleInput(q)" [value]="q" />
+            <label [for]="q">Huey</label>
+          </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Annuler</button>
+  <button mat-button [mat-dialog-close]="handleClose()" cdkFocusInitial>Valider</button>
+</mat-dialog-actions>
