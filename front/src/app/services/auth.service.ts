@@ -5,7 +5,7 @@ import { ED } from '../../environments/environment.prod';
 class UserSession {
   token: string = '';
   fa: [{ cn: string; cv: string }] | [];
-  accounts: [user] | [] = [];
+  accounts: Array<user> | [] = [];
 
   constructor() {
     this.token;
@@ -31,8 +31,8 @@ class UserSession {
     return this.fa;
   }
 
-  setAccounts(accounts: user) {
-    this.accounts = [accounts];
+  setAccounts(accounts: Array<user>) {
+    this.accounts = accounts;
     sessionStorage.setItem('accounts', JSON.stringify(this.accounts));
   }
 
@@ -107,13 +107,15 @@ export class AuthService {
           'X-Token': user.getToken()!,
         },
         method: 'POST',
-        body: 'data=' + JSON.stringify({ data: { choix: btoa(answear) } }),
+        body: 'data=' + JSON.stringify({ choix: btoa(answear) }),
       })
     ).json();
 
     if (!(res.code == 200)) throw new Error('Invalid answear');
     const { cn, cv } = res.data;
     user.setFa(cn, cv);
+
+    return res.code;
   }
 
   getAccount() {

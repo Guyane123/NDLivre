@@ -1,9 +1,8 @@
-.container {
-    display: flex;
-    justify-content: space-around;
+.bookCard {
+    max-width: 300px;
 }
 
-.about {
-    display: flex;
-    flex-direction: column;
+.img {
+    width: 100%;
+    border-radius: 8px;
 }

@@ -10,7 +10,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
 import {
@@ -23,6 +28,7 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +45,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  constructor(private router: Router) {}
+  authService = inject(AuthService);
+  inputGroup = new FormGroup({
+    password: new FormControl(),
+    identifiant: new FormControl(),
+    isRelogin: new FormControl(),
+  });
+
   readonly dialog = inject(MatDialog);
+  readonly answear = signal('');
+
   openDialog(qcm: { question: string; answears: Array<string> }): void {
     const dialogRef = this.dialog.open(DialogQCM, {
       width: '250px',
@@ -47,14 +63,31 @@ export class LoginComponent {
       exitAnimationDuration: '200ms',
       data: qcm,
     });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if (result !== undefined) {
+        this.answear.set(result);
+        this.authService.qcm(result).then((res) => {
+          if (res == 200) {
+            this.login();
+            this.router.navigate(['/']);
+          }
+        });
+      }
+    });
   }
 
-  authService = inject(AuthService);
-  inputGroup = new FormGroup({
-    password: new FormControl(),
-    identifiant: new FormControl(),
-    isRelogin: new FormControl(),
-  });
+  async login() {
+    const { password, isRelogin, identifiant } = this.inputGroup.value;
+    const qcm = this.authService
+      .login(identifiant, password, isRelogin)
+      .then((v) => {
+        if (!v) return;
+
+        this.openDialog(v);
+      });
+  }
 
   hide = signal(false);
   clickEvent(event: MouseEvent) {
@@ -67,13 +100,7 @@ export class LoginComponent {
 
     const { password, isRelogin, identifiant } = this.inputGroup.value;
 
-    const qcm = this.authService
-      .login(identifiant, password, isRelogin)
-      .then((v) => {
-        if (!v) return;
-
-        this.openDialog(v);
-      });
+    this.login();
   }
 }
 
@@ -88,15 +115,26 @@ export class LoginComponent {
     MatDialogTitle,
     MatDialogContent,
     CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogQCM {
+  constructor(
+    @Inject(MAT_DIALOG_DATA)
+    public data: { question: string; answears: Array<string> }
+  ) {}
+
   readonly dialogRef = inject(MatDialogRef<DialogQCM>);
+  readonly answear = model(this.data.answears[0]);
 
   v = '';
+
   handleInput(value: string) {
     this.v = value;
+    console.log(this.v);
   }
 
   trackBy(index: number, v: string) {
@@ -104,9 +142,4 @@ export class DialogQCM {
   }
 
   handleClose() {}
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA)
-    public data: { question: string; answears: Array<string> }
-  ) {}
 }
