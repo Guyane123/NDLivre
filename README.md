@@ -11,6 +11,11 @@
 
 ## Prérequis
 
+Back: Express
+Mobile: Nativescript
+Web: Angular
+Windows/Linux/Mac : Electron
+
 Assurez-vous d’avoir les éléments suivants installés :
 
 - [Node.js](https://nodejs.org/) 
