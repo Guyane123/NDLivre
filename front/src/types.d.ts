@@ -1,11 +1,25 @@
 
 type book = {
-    title: string,
-    author: string,
-    desc: string,
-    ISBN: string,
-    date: Date
-}
+  title: string;
+  authors: Array<string>;
+  ISBN: Array<{ type: string; identifier: string }>;
+  date: Date;
+  publisher: string;
+  categories: [string];
+};
+
+type extendedBook = book & {
+  desc: string;
+  pages: number;
+  imageLinks: {
+    smallThumbnail: string;
+    thumbnail: string;
+    small: string;
+    medium: string;
+    large: string;
+    extraLarge: string;
+  };
+};
 
 export type user = {
     idLogin: number; //int | Paramètre de cookie pour savoir si l'utilisateur est connecté via login/password

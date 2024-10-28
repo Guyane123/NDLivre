@@ -3,9 +3,11 @@ export default mongoose => {
       {
         date: { type: Date },
         title: String,
-        author: String,
-        desc: String,
-        ISBN: String,
+        authors: [String],
+        ISBN: [{ type: String, identifier: string }],
+        publisher: String,
+        categories: [String],
+
         
         users: [mongoose.Types.ObjectId()]
 

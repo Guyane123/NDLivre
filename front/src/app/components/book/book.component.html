@@ -1,18 +1,30 @@
 
 
 <mat-card class="bookCard" appearance="outlined">
-    <mat-card-header>
-      <img mat-card-avatar src="https://thispersondoesnotexist.com" class="example-header-image" />
-      <mat-card-title>{{book.author}}</mat-card-title>
-    </mat-card-header>
-    <img mat-card-image class="img" src="https://static.fnac-static.com/multimedia/PE/Images/FR/NR/fd/ee/fe/16707325/1540-1/tsp20241003080042/Romans.jpg" alt="Photo of a Shiba Inu">
-    <mat-card-content>
-      <p>
-        {{book.desc}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
+
+
+
+    @if (!book) {
+      <mat-spinner></mat-spinner>
+      } 
+      @else {
+        <mat-card-header>
+          <img mat-card-avatar src="https://thispersondoesnotexist.com" class="example-header-image" />
+          <mat-card-title>{{book.authors}}</mat-card-title>
+        </mat-card-header>
+    
+    
+        <img mat-card-image class="img" src="https://static.fnac-static.com/multimedia/PE/Images/FR/NR/fd/ee/fe/16707325/1540-1/tsp20241003080042/Romans.jpg" alt="Photo of a Shiba Inu">
+        
+        <mat-card-content>
+          <p>
+    
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      }
+
 </mat-card>
