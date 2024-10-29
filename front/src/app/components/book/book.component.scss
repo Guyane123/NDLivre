@@ -1,8 +1,48 @@
+a {
+    all: unset;
+    cursor: pointer;
+}
+
 .bookCard {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    max-width: 300px;
+    width: 100%;
+    height: 100%;
+}
+.col {
+    max-width: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.img {
     max-width: 300px;
 }
 
-.img {
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 100%;
-    border-radius: 8px;
+    height: 100%;
+}
+
+.col .img {
+    object-fit: cover;
+    width: 240px;
+    height: 192px;
+}
+
+.content {
+    margin-top: 16px;
+    display: flex;
+}
+.content img {
+    margin-right: 8px;
+}
+
+.snackBarContainer, .c {
+    margin-bottom: 200px !important; 
 }

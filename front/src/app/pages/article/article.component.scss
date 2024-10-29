@@ -1,0 +1,100 @@
+.btns {
+    display: flex;
+    flex-direction: column;
+}
+.book {
+    display: flex;
+    justify-content: space-between;
+}
+.utils {
+    margin-top: 8px;
+    width: 100%;
+}
+.utils button {
+    width: 100%;
+}
+.img {
+    width: 240px;
+    height: 192px;
+    object-fit: contain;
+}
+.userPP {
+    border-radius: 100%;
+    width: 32px;
+}
+.book {
+    width: 100%;
+}
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 64px;
+}
+
+
+.top {
+    display: none;
+}
+
+@media (max-width: 800px) { 
+
+    .top {
+        position: fixed;
+        background-color: white;
+        height: 64px;
+        width: 100%;
+        justify-content: space-between;
+        display: flex;
+        align-items: center;
+        z-index: 4;
+        top: 0px;
+    }
+
+.book {
+    width: 100%;
+}
+.user {
+    width: 100%;
+}
+
+.utils {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 8px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 4;
+
+    
+}
+}
+.block {
+    width: 100%;
+    margin-top: 8px;
+    box-sizing: border-box;
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid #dadce0;
+}
+
+.a {
+    margin-top: 8px;
+    margin-right: 8px;
+}
+
+.tabGroup {
+    width: 100%;
+}
+
+
+.bottomSheetContainer {
+    display: flex;
+    justify-content: space-between;
+}
+.bottomSheetContent {
+    display: flex;
+    flex-direction: column;
+}

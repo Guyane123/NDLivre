@@ -1,0 +1,100 @@
+
+<div class="container">
+
+    <div class="top">
+        <button  (click)="handleBack()" class="back uBtn" mat-button aria-label="Example icon button with a delete icon">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+
+        <div>
+            <button (click)="handleShare()" class="back uBtn" mat-button aria-label="Example icon button with a delete icon">
+                <mat-icon>share</mat-icon>
+            </button>
+    
+            <button   (click)="handleLike()" class="back uBtn" mat-button aria-label="Example icon button with a delete icon">
+                <mat-icon>favorite</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    @if (!book) {
+  } @else {
+        <div class="book block">
+            <div class="info">
+                <h3>{{book.title}}</h3>
+                <h4>par
+                @for (author of book.authors; track author) {
+                    {{author}}
+                }
+                </h4>
+    
+                <div>
+                    <a mat-flat-button class="a" [href]="'http://books.google.fr/books?id=' + book.id + '&printsec=frontcover&dq=isbn:' + book.ISBN[0].identifier" target="_blank">Aperçu</a>
+                    <a mat-raised-button class="a" [href]="'https://books.google.fr/books?id=' + book.id" target="_blank">Plus d'information</a>
+                
+                      
+                </div>
+            </div>
+            <img [src]="book.imageLinks.small" class="img" alt="">
+          
+        </div>
+
+  }
+  <mat-tab-group class="tabGroup">
+    <mat-tab label="Information">
+        <div class="block">
+
+            @if (!book) {
+                <mat-spinner></mat-spinner>
+            } @else {
+                <mat-accordion multi>
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>A propos de cette édition</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-list role="list">
+                            <mat-list-item role="listitem">Nombre de pages : <span>{{book.pages}}</span></mat-list-item>
+                            <mat-list-item role="listitem">Editeur : <span>{{book.publisher}}</span> </mat-list-item>
+                            <mat-list-item role="listitem">Publication : <span>{{toDate(book.date)}}</span></mat-list-item>
+                            <mat-list-item role="listitem">ISBN : <span>{{book.ISBN[0].identifier}}</span>,<span>{{book.ISBN[1].identifier}}</span></mat-list-item>
+                            <mat-list-item role="listitem">Id : <span>{{book.id}}</span></mat-list-item>
+                            <mat-list-item role="listitem">Categories : @for (c of book.categories; track c) {<span>{{c}}, </span>}</mat-list-item>
+                        </mat-list>    
+                      </mat-expansion-panel>
+                      <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>Description</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-list role="list">
+                            <p>{{book.desc}}</p>
+                        </mat-list>    
+                      </mat-expansion-panel>
+                </mat-accordion>
+            }
+        </div>
+    </mat-tab>
+    <mat-tab label="Historique"> Content 2 </mat-tab>
+    <mat-tab label="Commentaires"> Commentaires </mat-tab>
+  </mat-tab-group>
+  
+<div class="utils">
+    <button mat-flat-button>Demander le livre</button>
+</div>
+  @if (!article) {
+} @else {
+
+    <div class="user block">
+        <img mat-card-avatar class="userPP" [src]="article.user.image" />
+        <h3>{{article.user.pseudonym}}</h3>
+        <p>Publié le {{toDate(article.date)}}</p>
+        <div class="btns">
+            <button mat-flat-button>Contacter</button>
+        </div>
+
+    </div>
+
+
+}
+
+
+</div>

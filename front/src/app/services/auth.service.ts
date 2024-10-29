@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { user } from '../../types';
+import { EDUser } from '../../types';
 import { ED } from '../../environments/environment.prod';
 
 class UserSession {
   token: string = '';
   fa: [{ cn: string; cv: string }] | [];
-  accounts: Array<user> | [] = [];
+  accounts: Array<EDUser> | [] = [];
 
   constructor() {
     this.token;
@@ -31,7 +31,7 @@ class UserSession {
     return this.fa;
   }
 
-  setAccounts(accounts: Array<user>) {
+  setAccounts(accounts: Array<EDUser>) {
     this.accounts = accounts;
     sessionStorage.setItem('accounts', JSON.stringify(this.accounts));
   }

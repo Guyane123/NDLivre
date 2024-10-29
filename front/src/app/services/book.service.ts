@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { book, extendedBook } from '../../types';
+import { book } from '../../types';
 var regExp = /[a-zA-Z]/g;
 
 @Injectable({
   providedIn: 'root',
 })
-export class bookService {
-  async getBook(identifier: string): Promise<extendedBook> {
+export class BookService {
+  async getBook(identifier: string): Promise<book> {
     let apiURL = identifier;
     if (regExp.test(identifier)) {
       apiURL = 'https://www.googleapis.com/books/v1/volumes/' + identifier;
@@ -16,6 +16,7 @@ export class bookService {
     }
 
     const {
+      id,
       volumeInfo: {
         title,
         authors,
@@ -36,9 +37,10 @@ export class bookService {
       date: publishedDate,
       ISBN: industryIdentifiers,
       categories: categories,
-      desc: description,
+      desc: description.replace('<p>', '').replace('</p>', ''),
       pages: pageCount,
       imageLinks,
+      id,
     };
     return book;
   }
