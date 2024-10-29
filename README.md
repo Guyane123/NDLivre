@@ -2,6 +2,10 @@
 
 **NDLivre** est une application web qui vous permet de partager votre bibliothèque de livres avec vos amis. Vos amis peuvent consulter les livres que vous possédez et vous envoyer une demande pour les emprunter. Simple et efficace, **NDLivre** transforme la gestion de vos prêts de livres en une expérience fluide et intuitive.
 
+
+![Mobile article page presentation](/PresentationArticleMobile.png)
+![Mobile article page presentation](/PresentationLoginMobile.png)
+
 ## Fonctionnalités Principales
 
 - 📚 **Partage de Bibliothèque** : Affichez vos livres et partagez-les facilement avec vos amis.
