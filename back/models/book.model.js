@@ -1,15 +1,16 @@
 export default mongoose => {
     var schema = mongoose.Schema(
       {
-        date: { type: Date },
-        title: String,
-        authors: [String],
-        ISBN: [{ type: String, identifier: string }],
-        publisher: String,
-        categories: [String],
+        ISBN: [{ type: String, identifier: string }],        
+        user: mongoose.Types.ObjectId(),
+        isVisible: Boolean,
+        desc: String,
+        date: Date,
+        comments: [mongoose.Types.ObjectId()],
+        likes: [mongoose.Types.ObjectId()],
 
-        
-        users: [mongoose.Types.ObjectId()]
+        user: mongoose.Types.ObjectId()
+
 
       },
       { timestamps: true }
@@ -21,6 +22,6 @@ export default mongoose => {
       return object;
     });
   
-    const Book = mongoose.model("book", schema);
-    return Book;
+  const BookArticle = mongoose.model("bookArticle", schema);
+  return BookArticle;
   };

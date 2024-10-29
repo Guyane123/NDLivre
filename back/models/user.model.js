@@ -6,7 +6,11 @@ export default mongoose => {
       email: String,
       type: String,
       password: String,
-      books: [mongoose.Types.ObjectId()]
+      type: Number, // 0: user, 1: ADMIN, 2: DEV
+      books: [mongoose.Types.ObjectId()],
+      history: [mongoose.Types.ObjectId()],
+      demands: [mongoose.Types.ObjectId()],
+      comments: [mongoose.Types.ObjectId()]
 
 
 
