@@ -8,12 +8,14 @@ const ISBN = [
 ];
 
 export const mockedUser: Omit<user, 'password'> = {
+  EDId: '1378',
+  authType: 'ED',
   type: 'user',
   books: [],
   pseudonym: 'John Doe',
   image: 'https://thispersondoesnotexist.com',
   email: 'johndoe@exemple.com',
-  demands: [],
+  loans: [],
   history: [],
   comments: [],
 };

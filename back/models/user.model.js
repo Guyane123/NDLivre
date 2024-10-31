@@ -1,15 +1,22 @@
+function isED(authType) {
+  return authType == "ED" ? true : false
+}
+
+
 export default mongoose => {
   var schema = mongoose.Schema(
     {
       pseudonym: String,
-      image: String,
-      email: String,
+      image: { type: String, required: !isED(authType) },
+      email: { type: String, required: !isED(authType) },
       type: String,
+      authType: String,
+      EDId: { type: String, required: isED(authType) },
       password: String,
       type: Number, // 0: user, 1: ADMIN, 2: DEV
       books: [mongoose.Types.ObjectId()],
       history: [mongoose.Types.ObjectId()],
-      demands: [mongoose.Types.ObjectId()],
+      loans: [mongoose.Types.ObjectId()],
       comments: [mongoose.Types.ObjectId()]
 
 

@@ -19,6 +19,17 @@ export type comment = {
 
 export type like = Omit<comment, 'content'>;
 
+export type shelf = {
+  id: number;
+  title: string;
+  updated: Date;
+  created: Date;
+  acces: 'PUBLIC' | 'PRIVATE';
+  volumeCount: number;
+  volumesLastUpdated: Date;
+  selfLink: string;
+};
+
 export type book = {
   id: string;
   title: string;
@@ -39,6 +50,140 @@ export type book = {
   };
 };
 
+type member = {
+  civilite: string;
+  prenom: string;
+  particule: string;
+  nom: string;
+  sexe: 'F' | 'M';
+  id: number;
+  idRegime: number;
+  type: string;
+  matiere: string;
+  photo: string;
+  telephone: string;
+  email: string;
+  estBlackList: boolean;
+  badge: string;
+  messagerieActive: boolean;
+  isPP: boolean;
+  etablissements: any[];
+  classe: Classe;
+  responsable: Responsable;
+  contacts: any[];
+  fonction: Fonction;
+};
+
+type Classe = {
+  id: number;
+  code: string;
+  libelle: string;
+};
+
+type Responsable = {
+  id: number;
+  versQui: string;
+  typeResp: string;
+};
+
+type Fonction = {
+  id: number;
+  libelle: string;
+};
+
+type googleApiBook = {
+  kind: 'books#volumes';
+  totalItems: number;
+  items: Array<{
+    kind: 'books#volume';
+    id: string;
+    etag: string;
+    selfLink: string;
+    volumeInfo: {
+      title: string;
+      authors: string[];
+      publisher: string;
+      publishedDate: string;
+      description: string;
+      industryIdentifiers: Array<{
+        type: string;
+        identifier: string;
+      }>;
+      readingModes: {
+        text: boolean;
+        image: boolean;
+      };
+      pageCount: number;
+      printType: string;
+      categories: string[];
+      maturityRating: string;
+      allowAnonLogging: boolean;
+      contentVersion: string;
+      panelizationSummary?: {
+        containsEpubBubbles: boolean;
+        containsImageBubbles: boolean;
+      };
+      imageLinks: {
+        smallThumbnail: string;
+        thumbnail: string;
+      };
+      previewLink: string;
+      infoLink: string;
+      canonicalVolumeLink: string;
+    };
+    layerInfo?: {
+      layers: Array<{
+        layerId: string;
+        volumeAnnotationsVersion: string;
+      }>;
+    };
+    saleInfo: {
+      country: string;
+      saleability: string;
+      isEbook: boolean;
+      listPrice?: {
+        amount: number;
+        currencyCode: string;
+      };
+      retailPrice?: {
+        amount: number;
+        currencyCode: string;
+      };
+      buyLink: string;
+      offers?: Array<{
+        finskyOfferType: number;
+        listPrice: {
+          amountInMicros: number;
+          currencyCode: string;
+        };
+        retailPrice: {
+          amountInMicros: number;
+          currencyCode: string;
+        };
+        giftable: boolean;
+      }>;
+    };
+    accessInfo: {
+      country: string;
+      viewability: string;
+      embeddable: boolean;
+      publicDomain: boolean;
+      textToSpeechPermission: string;
+      epub: {
+        isAvailable: boolean;
+        acsTokenLink?: string;
+      };
+      pdf: {
+        isAvailable: boolean;
+        acsTokenLink?: string;
+      };
+      webReaderLink: string;
+      accessViewStatus: string;
+      quoteSharingAllowed: boolean;
+    };
+  }>;
+};
+
 export type history = {
   type: 'from' | 'to';
   user: user;
@@ -48,14 +193,14 @@ export type history = {
 };
 export type user = {
   pseudonym: string;
-  image: string;
-  email: string;
+  image: string | undefined;
+  email: string | undefined;
   type: string;
-  //password: string;
-  type: number; // 0: user, 1: ADMIN, 2: DEV
+  EDId: string | undefined;
+  authType: string;
   books: Array<book>;
   history: article<history>;
-  demands: Array<demand>;
+  loans: Array<demand>;
   comments: Array<comment>;
 };
 

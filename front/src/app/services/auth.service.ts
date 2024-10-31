@@ -15,7 +15,7 @@ class UserSession {
 
   setToken(token: string) {
     this.token = token;
-    localStorage.setItem('credentials', JSON.stringify(this.token));
+    sessionStorage.setItem('credentials', JSON.stringify(this.token));
   }
 
   setFa(cn: string, cv: string) {
@@ -53,7 +53,9 @@ export class AuthService {
   ): Promise<{ question: string; answears: Array<string> } | void> {
     const res = await (
       await fetch(ED.apiUrl + '/login.awp', {
-        headers: { 'User-Agent': navigator.userAgent },
+        headers: {
+          'User-Agent': navigator.userAgent,
+        },
         method: 'POST',
         body:
           'data=' +

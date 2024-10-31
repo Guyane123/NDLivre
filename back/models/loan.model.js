@@ -19,6 +19,6 @@ export default mongoose => {
         return object;
     });
 
-    const Commentary = mongoose.model("commentary", schema);
-    return Commentary;
+    const Loan = mongoose.model("loan", schema);
+    return Loan;
 };

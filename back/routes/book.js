@@ -14,7 +14,7 @@ router.get('/', async function (req, res, next) {
 
 router.post('/', async function (req, res, next) {
 
-    const createdBook = await book.create(req.body.book)
+    const createdBook = await book.create(req.body)
 
     res.json(createdBook).status(200);
 });
