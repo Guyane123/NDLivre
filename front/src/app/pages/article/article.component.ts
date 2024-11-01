@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { article, book } from '../../../types';
 import { findArticle } from '../../../utils/mockedVariables';
 import { BookService } from '../../services/book.service';
@@ -19,6 +19,7 @@ import {
   MatSnackBarLabel,
   MatSnackBarRef,
 } from '@angular/material/snack-bar';
+import { RouterLink } from '@angular/router';
 import {
   MatBottomSheet,
   MatBottomSheetModule,
@@ -37,6 +38,8 @@ import {
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatIconModule,
+    RouterLink,
+    RouterModule,
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.scss',

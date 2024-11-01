@@ -1,23 +1,23 @@
 import {
+  SharedResizeObserver
+} from "./chunk-ZPYDY4QC.js";
+import {
   CdkScrollable,
   ViewportRuler
-} from "./chunk-CL4MWUQY.js";
+} from "./chunk-ICZFNHCP.js";
 import {
   CdkPortal,
   CdkPortalOutlet,
   TemplatePortal
-} from "./chunk-LLIQPWLF.js";
-import "./chunk-UKTKI3WW.js";
-import {
-  SharedResizeObserver
-} from "./chunk-4WRFLH27.js";
+} from "./chunk-7AZFDGSK.js";
 import {
   animate,
   state,
   style,
   transition,
   trigger
-} from "./chunk-KWGRAODA.js";
+} from "./chunk-JRKNIR65.js";
+import "./chunk-P6SC2DYO.js";
 import {
   CdkMonitorFocus,
   CdkObserveContent,
@@ -28,18 +28,19 @@ import {
   MAT_RIPPLE_GLOBAL_OPTIONS,
   MatCommonModule,
   MatRipple,
-  Platform,
   SPACE,
-  hasModifierKey,
+  hasModifierKey
+} from "./chunk-AUEOPQJN.js";
+import {
+  Platform,
   normalizePassiveListenerOptions
-} from "./chunk-7JUMUCHY.js";
+} from "./chunk-NDNKAN7U.js";
 import {
   DOCUMENT
-} from "./chunk-GE4XVLDC.js";
+} from "./chunk-LAKB337D.js";
 import {
   ANIMATION_MODULE_TYPE,
   Attribute,
-  BehaviorSubject,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -47,7 +48,6 @@ import {
   ContentChild,
   ContentChildren,
   Directive,
-  EMPTY,
   ElementRef,
   EventEmitter,
   Inject,
@@ -57,33 +57,19 @@ import {
   InputFlags,
   NgModule,
   NgZone,
-  Observable,
   Optional,
   Output,
   QueryList,
-  Subject,
-  Subscription,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation$1,
   afterNextRender,
   booleanAttribute,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
   forwardRef,
-  fromEvent,
   inject,
-  merge,
   numberAttribute,
-  of,
   setClassMetadata,
-  skip,
-  startWith,
-  switchMap,
-  takeUntil,
-  timer,
   ɵɵInheritDefinitionFeature,
   ɵɵInputTransformsFeature,
   ɵɵNgOnChangesFeature,
@@ -125,7 +111,25 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵviewQuery
-} from "./chunk-BLC4UP5I.js";
+} from "./chunk-UA6ZKXZC.js";
+import {
+  BehaviorSubject,
+  EMPTY,
+  Observable,
+  Subject,
+  Subscription,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  fromEvent,
+  merge,
+  of,
+  skip,
+  startWith,
+  switchMap,
+  takeUntil,
+  timer
+} from "./chunk-D4ZLZFBE.js";
 
 // node_modules/@angular/material/fesm2022/tabs.mjs
 var _c0 = ["*"];

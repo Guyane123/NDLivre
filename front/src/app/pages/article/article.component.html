@@ -78,7 +78,7 @@
   </mat-tab-group>
   
 <div class="utils">
-    <button mat-flat-button>Demander le livre</button>
+    <a mat-flat-button [routerLink]="['/loan', id]" [state]="{ book: book }">Demander le livre</a>
 </div>
   @if (!article) {
 } @else {

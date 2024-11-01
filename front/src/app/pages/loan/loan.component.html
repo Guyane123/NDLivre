@@ -1,0 +1,66 @@
+<!-- WHAT
+    WHERE
+    WHEN
+ 
+
+-->
+
+
+<mat-stepper  [orientation]="(stepperOrientation | async)!" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Quoi ?</ng-template>
+          <div>
+          </div>
+        <div>
+          <div>
+            @if(book) {
+              <img [src]="book.imageLinks.smallThumbnail" alt="">
+
+              <h4>{{book.title}}</h4>
+              <h5>
+                @for (a of book.authors; track a) {
+                  <span>{{a}}</span>
+                }
+              </h5>
+            } @else {
+
+            }
+          </div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Où ?</ng-template>
+        <p>Où allez vous retrouver votre ami ?</p>
+        <mat-form-field>
+          <mat-label>Lieu</mat-label>
+          <input type="text"
+                 placeholder="Choisi un lieu"
+                 aria-label="lieu"
+                 matInput
+                 [formControl]="myControl"
+                 [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            @for (place of places; track place.name) {
+              <mat-option [value]="place.name">{{place.name}}</mat-option>
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
