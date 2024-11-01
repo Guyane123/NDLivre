@@ -5,10 +5,14 @@
 
 -->
 
+<div class="container">
+  <app-nav>
+  <app-go-back></app-go-back>
+</app-nav>
 
 <mat-stepper  [orientation]="(stepperOrientation | async)!" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
+    <mat-step >
+      <form>
         <ng-template matStepLabel>Quoi ?</ng-template>
           <div>
           </div>
@@ -31,8 +35,8 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
-      <form [formGroup]="secondFormGroup">
+    <mat-step [stepControl]="firstFormGroup" errorMessage="Address is required.">
+      <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Où ?</ng-template>
         <p>Où allez vous retrouver votre ami ?</p>
         <mat-form-field>
@@ -41,26 +45,62 @@
                  placeholder="Choisi un lieu"
                  aria-label="lieu"
                  matInput
-                 [formControl]="myControl"
+                 required
+                 formControlName="placeCtrl"
                  [matAutocomplete]="auto">
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-autocomplete  (optionSelected)="handleOptionChange($event)" autoActiveFirstOption #auto="matAutocomplete">
             @for (place of places; track place.name) {
-              <mat-option [value]="place.name">{{place.name}}</mat-option>
+              <mat-option  [value]="place">{{place.name}}</mat-option>
             }
           </mat-autocomplete>
         </mat-form-field>
+        <app-map [lng]="lng" [lat]="lat" (change)="handleChange($event)" class="map"></app-map>
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
+    <mat-step [stepControl]="secondFormGroup" errorMessage="Time & date is required">
+      <form class="form" [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Quand ?</ng-template>
+        <p>Quand allez vous retrouver votre ami ?</p>
+        <mat-form-field>
+          <mat-label>Choisi une date</mat-label>
+          <input required matInput formControlName="dateCtrl" [matDatepicker]="datepicker" />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancel</button>
+              <button mat-raised-button matDatepickerApply>Apply</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Choisi l'heure</mat-label>
+          <ngx-mat-timepicker-toggle matIconSuffix [for]="picker"></ngx-mat-timepicker-toggle>
+          <input required matInput formControlName="timeCtrl" [ngxMatTimepicker]="picker">
+          <mat-hint>HH:MM AM</mat-hint>
+          <ngx-mat-timepicker [format]="12" #picker></ngx-mat-timepicker>  
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious (click)="getInfo()">Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
+      <ng-template matStepLabel>Recapitulatif</ng-template>
+      @if(book) {
+        <p>Vous avez demandez {{book!.title!}} à John Doe</p>
+        <p>Vous devez vous retrouvez : {{firstFormGroup.value.placeCtrl}}</p>
+        <p>Le {{secondFormGroup.value.dateCtrl}} à {{secondFormGroup.value.timeCtrl}}</p>
+      }
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button (click)="stepper.reset()">Terminer</button>
       </div>
     </mat-step>
   </mat-stepper>
+</div>

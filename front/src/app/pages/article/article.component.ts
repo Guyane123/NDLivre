@@ -1,5 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterModule,
+  RouterLink,
+} from '@angular/router';
 import { article, book } from '../../../types';
 import { findArticle } from '../../../utils/mockedVariables';
 import { BookService } from '../../services/book.service';
@@ -19,12 +24,13 @@ import {
   MatSnackBarLabel,
   MatSnackBarRef,
 } from '@angular/material/snack-bar';
-import { RouterLink } from '@angular/router';
 import {
   MatBottomSheet,
   MatBottomSheetModule,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
+import { NavComponent } from '../../components/nav/nav.component';
+import { GoBackComponent } from '../../components/go-back/go-back.component';
 
 @Component({
   selector: 'app-article',
@@ -40,6 +46,8 @@ import {
     MatIconModule,
     RouterLink,
     RouterModule,
+    NavComponent,
+    GoBackComponent,
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.scss',

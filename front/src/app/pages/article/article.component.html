@@ -1,10 +1,8 @@
 
 <div class="container">
 
-    <div class="top">
-        <button  (click)="handleBack()" class="back uBtn" mat-button aria-label="Example icon button with a delete icon">
-            <mat-icon>arrow_back</mat-icon>
-        </button>
+    <app-nav>
+        <app-go-back></app-go-back>
 
         <div>
             <button (click)="handleShare()" class="back uBtn" mat-button aria-label="Example icon button with a delete icon">
@@ -15,7 +13,8 @@
                 <mat-icon>favorite</mat-icon>
             </button>
         </div>
-    </div>
+
+    </app-nav>
 
     @if (!book) {
   } @else {
