@@ -20,21 +20,21 @@
   } @else {
         <div class="book block">
             <div class="info">
-                <h3>{{book.title}}</h3>
+                <h3>{{book.volumeInfo.title}}</h3>
                 <h4>par
-                @for (author of book.authors; track author) {
+                @for (author of book.volumeInfo.authors; track author) {
                     {{author}}
                 }
                 </h4>
     
                 <div>
-                    <a mat-flat-button class="a" [href]="'http://books.google.fr/books?id=' + book.id + '&printsec=frontcover&dq=isbn:' + book.ISBN[0].identifier" target="_blank">Aperçu</a>
+                    <a mat-flat-button class="a" [href]="'http://books.google.fr/books?id=' + book.id + '&printsec=frontcover&dq=isbn:' + book.volumeInfo.industryIdentifiers[0].identifier" target="_blank">Aperçu</a>
                     <a mat-raised-button class="a" [href]="'https://books.google.fr/books?id=' + book.id" target="_blank">Plus d'information</a>
                 
                       
                 </div>
             </div>
-            <img [src]="book.imageLinks.small" class="img" alt="">
+            <img [src]="book.volumeInfo.imageLinks.small" class="img" alt="">
           
         </div>
 
@@ -52,12 +52,12 @@
                           <mat-panel-title>A propos de cette édition</mat-panel-title>
                         </mat-expansion-panel-header>
                         <mat-list role="list">
-                            <mat-list-item role="listitem">Nombre de pages : <span>{{book.pages}}</span></mat-list-item>
-                            <mat-list-item role="listitem">Editeur : <span>{{book.publisher}}</span> </mat-list-item>
-                            <mat-list-item role="listitem">Publication : <span>{{toDate(book.date)}}</span></mat-list-item>
-                            <mat-list-item role="listitem">ISBN : <span>{{book.ISBN[0].identifier}}</span>,<span>{{book.ISBN[1].identifier}}</span></mat-list-item>
+                            <mat-list-item role="listitem">Nombre de pages : <span>{{book.volumeInfo.pageCount}}</span></mat-list-item>
+                            <mat-list-item role="listitem">Editeur : <span>{{book.volumeInfo.publisher}}</span> </mat-list-item>
+                            <mat-list-item role="listitem">Publication : <span>{{toDate(book.volumeInfo.publishedDate)}}</span></mat-list-item>
+                            <mat-list-item role="listitem">ISBN : <span>{{book.volumeInfo.industryIdentifiers[0].identifier}}</span>,<span>{{book.volumeInfo.industryIdentifiers[1].identifier}}</span></mat-list-item>
                             <mat-list-item role="listitem">Id : <span>{{book.id}}</span></mat-list-item>
-                            <mat-list-item role="listitem">Categories : @for (c of book.categories; track c) {<span>{{c}}, </span>}</mat-list-item>
+                            <mat-list-item role="listitem">Categories : @for (c of book.volumeInfo.categories; track c) {<span>{{c}}, </span>}</mat-list-item>
                         </mat-list>    
                       </mat-expansion-panel>
                       <mat-expansion-panel>
@@ -65,7 +65,7 @@
                           <mat-panel-title>Description</mat-panel-title>
                         </mat-expansion-panel-header>
                         <mat-list role="list">
-                            <p>{{book.desc}}</p>
+                            <p>{{book.volumeInfo.description}}</p>
                         </mat-list>    
                       </mat-expansion-panel>
                 </mat-accordion>

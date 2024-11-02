@@ -109,7 +109,7 @@ const user = new User();
   providedIn: 'root',
 })
 export class BookService {
-  async getBook(identifier: string): Promise<book> {
+  async getBook(identifier: string): Promise<googleApiBook> {
     let apiURL = identifier;
     if (regExp.test(identifier)) {
       apiURL = 'https://www.googleapis.com/books/v1/volumes/' + identifier;
@@ -118,33 +118,8 @@ export class BookService {
         'https://www.googleapis.com/books/v1/volumes?q=isbn:' + identifier;
     }
 
-    const {
-      id,
-      volumeInfo: {
-        title,
-        authors,
-        publishedDate,
-        industryIdentifiers,
-        description,
-        publisher,
-        categories,
-        pageCount,
-        imageLinks,
-      },
-    } = await (await fetch(apiURL)).json();
+    const book = await (await fetch(apiURL)).json();
 
-    const book = {
-      title,
-      authors,
-      publisher: publisher,
-      date: publishedDate,
-      ISBN: industryIdentifiers,
-      categories: categories,
-      desc: description.replace('<p>', '').replace('</p>', ''),
-      pages: pageCount,
-      imageLinks,
-      id,
-    };
     return book;
   }
 
@@ -196,5 +171,19 @@ export class BookService {
     ).json();
 
     return books;
+  }
+
+  async searchBooks(searchTerms: string, nbOfItems: number) {
+    if (!searchTerms) return [];
+    const formattedSeachTerms = searchTerms.replace(' ', '+');
+    const books: Array<googleApiBook> = (
+      await (
+        await fetch(
+          `    https://www.googleapis.com/books/v1/volumes?q=${formattedSeachTerms}&printType=books&index=0&maxResults=${nbOfItems}`
+        )
+      ).json()
+    ).items;
+
+    return books.slice(0, nbOfItems);
   }
 }

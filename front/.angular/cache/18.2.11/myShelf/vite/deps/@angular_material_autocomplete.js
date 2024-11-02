@@ -1,24 +1,19 @@
 import {
   MAT_FORM_FIELD,
   MatFormField
-} from "./chunk-TCDBQFE4.js";
-import "./chunk-ZKKJPO6Y.js";
+} from "./chunk-XRMJ5VE4.js";
+import "./chunk-5O73ZMVU.js";
 import {
   NG_VALUE_ACCESSOR
-} from "./chunk-J5MZDTTG.js";
+} from "./chunk-GYZPC4NB.js";
 import {
   Overlay,
   OverlayConfig,
   OverlayModule
-} from "./chunk-UNBOC77E.js";
-import {
-  CdkScrollableModule,
-  ViewportRuler
-} from "./chunk-D2WUGMJY.js";
-import "./chunk-QYP73GRS.js";
+} from "./chunk-V75S2NSM.js";
 import {
   TemplatePortal
-} from "./chunk-VZATZHVI.js";
+} from "./chunk-2TKSKYFJ.js";
 import {
   animate,
   group,
@@ -26,13 +21,13 @@ import {
   style,
   transition,
   trigger
-} from "./chunk-75XWZX7S.js";
+} from "./chunk-F2KGVRSW.js";
 import {
-  ActiveDescendantKeyManager,
-  DOWN_ARROW,
-  Directionality,
-  ENTER,
-  ESCAPE,
+  CdkScrollableModule,
+  ViewportRuler
+} from "./chunk-UKFILWVZ.js";
+import "./chunk-MB7IDYO4.js";
+import {
   MAT_OPTGROUP,
   MAT_OPTION_PARENT_COMPONENT,
   MatCommonModule,
@@ -40,24 +35,31 @@ import {
   MatOption,
   MatOptionModule,
   MatOptionSelectionChange,
+  _countGroupLabelsBeforeOption,
+  _getOptionScrollPosition
+} from "./chunk-MQN6KKQM.js";
+import {
+  ActiveDescendantKeyManager,
+  DOWN_ARROW,
+  Directionality,
+  ENTER,
+  ESCAPE,
   TAB,
   UP_ARROW,
-  _countGroupLabelsBeforeOption,
-  _getOptionScrollPosition,
   addAriaReferencedId,
   hasModifierKey,
   removeAriaReferencedId
-} from "./chunk-E2BMWOOS.js";
+} from "./chunk-RZJEJSCT.js";
 import {
   BreakpointObserver,
   Breakpoints,
   Platform,
   _getEventTarget
-} from "./chunk-GIMUYT5S.js";
+} from "./chunk-GDRT5DZF.js";
 import {
   CommonModule,
   DOCUMENT
-} from "./chunk-4Z7FRCLA.js";
+} from "./chunk-TQSUNQCI.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -111,24 +113,27 @@ import {
   ɵɵrestoreView,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-TRJCMFM6.js";
+} from "./chunk-77N3YET6.js";
+import "./chunk-WNPMEE2K.js";
+import {
+  defer,
+  fromEvent,
+  merge
+} from "./chunk-6XISFZPP.js";
 import {
   Observable,
   Subject,
   Subscription,
-  defer,
   delay,
   filter,
-  fromEvent,
   map,
-  merge,
   of,
   startWith,
   switchMap,
   take,
   tap
-} from "./chunk-66JPAEYR.js";
-import "./chunk-3OV72XIM.js";
+} from "./chunk-OGW7HQS4.js";
+import "./chunk-TXDUYLVM.js";
 
 // node_modules/@angular/material/fesm2022/autocomplete.mjs
 var _c0 = ["panel"];

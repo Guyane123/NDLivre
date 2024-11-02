@@ -19,11 +19,11 @@
         <div>
           <div>
             @if(book) {
-              <img [src]="book.imageLinks.smallThumbnail" alt="">
+              <img [src]="getBookThumbnail(book)" alt="">
 
-              <h4>{{book.title}}</h4>
+              <h4>{{book.volumeInfo.title}}</h4>
               <h5>
-                @for (a of book.authors; track a) {
+                @for (a of book.volumeInfo.authors; track a) {
                   <span>{{a}}</span>
                 }
               </h5>
@@ -48,13 +48,15 @@
                  required
                  formControlName="placeCtrl"
                  [matAutocomplete]="auto">
-          <mat-autocomplete  (optionSelected)="handleOptionChange($event)" autoActiveFirstOption #auto="matAutocomplete">
-            @for (place of places; track place.name) {
+          <mat-autocomplete autoActiveFirstOption (optionSelected)="handleOptionChange($event)" autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayPlaceName">
+            @for (place of places; track place) {
               <mat-option  [value]="place">{{place.name}}</mat-option>
             }
           </mat-autocomplete>
         </mat-form-field>
-        <app-map [lng]="lng" [lat]="lat" (change)="handleChange($event)" class="map"></app-map>
+        <!--@if(this.firstFormGroup.value.placeCtrl!.name == "Autre") {-->
+          <app-map [lng]="lng" [lat]="lat" (change)="handleChange($event)" class="map"></app-map>
+        <!--}-->
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
@@ -85,7 +87,7 @@
           <ngx-mat-timepicker [format]="12" #picker></ngx-mat-timepicker>  
         </mat-form-field>
         <div>
-          <button mat-button matStepperPrevious (click)="getInfo()">Back</button>
+          <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
       </form>
@@ -93,13 +95,13 @@
     <mat-step>
       <ng-template matStepLabel>Recapitulatif</ng-template>
       @if(book) {
-        <p>Vous avez demandez {{book!.title!}} à John Doe</p>
+        <p>Vous avez demandez {{book!.volumeInfo.title!}} à John Doe</p>
         <p>Vous devez vous retrouvez : {{firstFormGroup.value.placeCtrl}}</p>
         <p>Le {{secondFormGroup.value.dateCtrl}} à {{secondFormGroup.value.timeCtrl}}</p>
       }
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Terminer</button>
+        <button mat-button (click)="handleStepperClose()">Terminer</button>
       </div>
     </mat-step>
   </mat-stepper>

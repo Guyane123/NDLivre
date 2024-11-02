@@ -1,6 +1,9 @@
-<p>home works!</p>
 
-{{user}}
 
-<app-book></app-book>
+<app-nav-bar [articles]="articles" (change)="handleSearchChange($event)"></app-nav-bar>
 
+<app-books>
+    @for (a of articles; track a.id) {
+        <app-book (load)="handleBookLoad($event)" [article]="a"></app-book>
+    }
+</app-books>

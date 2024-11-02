@@ -1,0 +1,42 @@
+<app-nav>
+    <button [mat-dialog-close]="addedBooks" class="back uBtn" mat-button aria-label="Example icon button with a delete icon">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+</app-nav>
+
+<div class="container">
+    <div mat-dialog-title class="head">
+        <mat-form-field>
+            <mat-label>Rechercher des livres</mat-label>
+            <input
+              matInput
+              (input)="handleInput()"
+              placeholder="Titre"
+              [formControl]="controler"
+            />
+          </mat-form-field>
+          @if(mobileQuery.matches) {
+            <button mat-flat-button (click)="showBarcodeScanner()"><mat-icon>codebar</mat-icon>Scanner codebar</button>
+            <barcode-scanner-livestream
+            [hidden]="!isHidden"
+            type="code_128"
+            (valueChanges)="handleValueChange($event)"
+          ></barcode-scanner-livestream>
+          }
+    </div>
+    <mat-dialog-content class="mat-dialog-content">
+        @for (book of books; track book.id) {
+            <div class="book">
+                <img class="img" [src]="getBookThumbnail(book)" alt="">
+                <div>
+                    {{book.volumeInfo.title}}
+                </div>
+                <button mat-button class="btn" (click)="handleAdd(book)"><mat-icon>add_circle</mat-icon></button>
+            </div>
+        }
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button mat-dialog-close>Annuler</button>
+        <button mat-button [mat-dialog-close]="addedBooks" cdkFocusInitial>Valider</button>
+    </mat-dialog-actions>
+</div>

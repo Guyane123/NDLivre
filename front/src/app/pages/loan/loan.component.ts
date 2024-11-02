@@ -11,10 +11,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterModule,
+} from '@angular/router';
 import { findArticle } from '../../../utils/mockedVariables';
-import { article, book } from '../../../types';
-import { map, Observable } from 'rxjs';
+import { article, book, googleApiBook, place } from '../../../types';
+import { map, Observable, startWith } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { BookService } from '../../services/book.service';
@@ -24,8 +29,9 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { MatIcon } from '@angular/material/icon';
 import { NavComponent } from '../../components/nav/nav.component';
 import { GoBackComponent } from '../../components/go-back/go-back.component';
-import { MapComponent } from '../../map/map.component';
+import { MapComponent } from '../../components/map/map.component';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { getBookThumbnail } from '../../../utils/utils';
 
 @Component({
   selector: 'app-loan',
@@ -48,6 +54,8 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
     GoBackComponent,
     MapComponent,
     MatAutocompleteTrigger,
+    RouterLink,
+    RouterModule,
   ],
   templateUrl: './loan.component.html',
   styleUrl: './loan.component.scss',
@@ -55,58 +63,95 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 export class LoanComponent {
   bookService = new BookService();
   stepperOrientation: Observable<'horizontal' | 'vertical'>;
-
-  lat: number | undefined;
-  lng: number | undefined;
+  filteredOptions: Observable<place[]> | undefined;
+  lng: number | undefined = -3.2794998697707545;
+  lat: number | undefined = 47.80651738328047;
   handleChange(e: any) {
     console.log(e);
   }
   places = [
     {
+      name: 'Autre (préciser)',
+      coordinate: {
+        lat: 47.80651738328047,
+        lng: -3.2794998697707545,
+      },
+    },
+    {
       name: 'Cour principale',
       coordinate: {
-        longitude: '47.80651738328047',
-        lattitude: '-3.2794998697707545',
+        lat: 47.80651738328047,
+        lng: -3.2794998697707545,
       },
     },
     {
       name: 'Cour intérieur',
       coordinate: {
-        longitude: '47.806617418084684',
-        lattitude: '-3.2797449715784945',
+        lat: 47.806617418084684,
+        lng: -3.2797449715784945,
       },
     },
     {
       name: 'Preau BVS',
       coordinate: {
-        longitude: '47.806617418084684',
-        lattitude: '-3.2797449715784945',
+        lat: 47.806617418084684,
+        lng: -3.2797449715784945,
       },
     },
     {
       name: 'Préau principal',
       coordinate: {
-        longitude: '47.8065901722891',
-        lattitude: '-3.2797294296310255',
+        lat: 47.8065901722891,
+        lng: -3.2797294296310255,
       },
     },
   ];
 
-  constructor(private route: ActivatedRoute) {
+  @Input() articleId: string | undefined;
+  article: article | undefined;
+  book: googleApiBook | undefined;
+  state: any;
+
+  getBookThumbnail = getBookThumbnail;
+  private _formBuilder = inject(FormBuilder);
+
+  firstFormGroup = this._formBuilder.group({
+    placeCtrl: [
+      { name: '', coordinate: { lat: 0, lng: 0 } },
+      Validators.required,
+    ],
+  });
+  secondFormGroup = this._formBuilder.group({
+    dateCtrl: ['', Validators.required],
+    timeCtrl: ['', Validators.required],
+  });
+
+  displayPlaceName(place: any): string {
+    return place ? place.name : '';
+  }
+
+  constructor(private route: ActivatedRoute, private _router: Router) {
     const breakpointObserver = inject(BreakpointObserver);
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
   }
 
-  @Input() articleId: string | undefined;
-  article: article | undefined;
-  book: book | undefined;
-  state: any;
-
-  getInfo() {
-    console.log(this.firstFormGroup, this.secondFormGroup);
+  handleStepperClose() {
+    const { dateCtrl, timeCtrl } = this.secondFormGroup.value;
+    const { placeCtrl } = this.firstFormGroup.value;
+    const data = { where: placeCtrl, when: { date: dateCtrl, time: timeCtrl } };
+    console.log(data);
+    this._router.navigate(['/article', '1']);
   }
+
+  /**private _filter(value: string): Array<place> {
+    const filterValue = value ? value.toLowerCase() : '';
+
+    return this.places.filter((p) => {
+      return p.name.toLowerCase().includes('c');
+    });
+  }**/
 
   ngOnInit() {
     this.book = history.state.book;
@@ -122,33 +167,24 @@ export class LoanComponent {
     findArticle(id).then((v) => {
       if (!v) return;
       this.article = v;
-      this.bookService.getBook(v.bookId).then((b: book) => {
+      this.bookService.getBook(v.bookId).then((b: googleApiBook) => {
         console.log(b);
         this.book = b;
       });
     });
+
+    /**this.filteredOptions =
+      this.firstFormGroup!.controls.placeCtrl.valueChanges.pipe(
+        map((value) => {
+          return this._filter('');
+        })
+      );**/
   }
-  private _formBuilder = inject(FormBuilder);
-  myControl = new FormControl('');
-
-  firstFormGroup = this._formBuilder.group({
-    placeCtrl: [
-      { place: '', coordinate: { lattitude: '', longitude: '' } },
-      Validators.required,
-    ],
-  });
-  secondFormGroup = this._formBuilder.group({
-    dateCtrl: ['', Validators.required],
-    timeCtrl: ['', Validators.required],
-  });
-
   handleOptionChange(e: any) {
     console.log(e);
-    this.lat = Number(
-      this.firstFormGroup.value.placeCtrl!.coordinate.lattitude
-    );
-    this.lng = Number(
-      this.firstFormGroup.value.placeCtrl!.coordinate.longitude
-    );
+    this.lat = Number(this.firstFormGroup.value.placeCtrl!.coordinate.lat);
+    this.lng = Number(this.firstFormGroup.value.placeCtrl!.coordinate.lng);
+
+    console.log(this.lat, this.lng);
   }
 }

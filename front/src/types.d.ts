@@ -50,6 +50,14 @@ export type book = {
   };
 };
 
+export type place = {
+  name: string;
+  coordinate: {
+    lat: number;
+    lng: number;
+  };
+};
+
 type member = {
   civilite: string;
   prenom: string;
@@ -91,97 +99,104 @@ type Fonction = {
   libelle: string;
 };
 
-type googleApiBook = {
+type googleApiBookRes = {
   kind: 'books#volumes';
   totalItems: number;
-  items: Array<{
-    kind: 'books#volume';
-    id: string;
-    etag: string;
-    selfLink: string;
-    volumeInfo: {
-      title: string;
-      authors: string[];
-      publisher: string;
-      publishedDate: string;
-      description: string;
-      industryIdentifiers: Array<{
-        type: string;
-        identifier: string;
-      }>;
-      readingModes: {
-        text: boolean;
-        image: boolean;
-      };
-      pageCount: number;
-      printType: string;
-      categories: string[];
-      maturityRating: string;
-      allowAnonLogging: boolean;
-      contentVersion: string;
-      panelizationSummary?: {
-        containsEpubBubbles: boolean;
-        containsImageBubbles: boolean;
-      };
-      imageLinks: {
-        smallThumbnail: string;
-        thumbnail: string;
-      };
-      previewLink: string;
-      infoLink: string;
-      canonicalVolumeLink: string;
+  items: Array<googleApiBook>;
+};
+
+type googleApiBook = {
+  kind: 'books#volume';
+  id: string;
+  etag: string;
+  selfLink: string;
+  volumeInfo: {
+    title: string;
+    authors: string[];
+    publisher: string;
+    publishedDate: string;
+    description: string;
+    industryIdentifiers: Array<{
+      type: string;
+      identifier: string;
+    }>;
+    readingModes: {
+      text: boolean;
+      image: boolean;
     };
-    layerInfo?: {
-      layers: Array<{
-        layerId: string;
-        volumeAnnotationsVersion: string;
-      }>;
+    pageCount: number;
+    printType: string;
+    categories: string[];
+    maturityRating: string;
+    allowAnonLogging: boolean;
+    contentVersion: string;
+    panelizationSummary?: {
+      containsEpubBubbles: boolean;
+      containsImageBubbles: boolean;
     };
-    saleInfo: {
-      country: string;
-      saleability: string;
-      isEbook: boolean;
-      listPrice?: {
-        amount: number;
+    imageLinks: {
+      smallThumbnail: string;
+      thumbnail: string;
+      medium: string;
+      small: string;
+      large: string;
+      thumbnail: string;
+      extraLarge: string;
+    };
+    previewLink: string;
+    infoLink: string;
+    canonicalVolumeLink: string;
+  };
+  layerInfo?: {
+    layers: Array<{
+      layerId: string;
+      volumeAnnotationsVersion: string;
+    }>;
+  };
+  saleInfo: {
+    country: string;
+    saleability: string;
+    isEbook: boolean;
+    listPrice?: {
+      amount: number;
+      currencyCode: string;
+    };
+    retailPrice?: {
+      amount: number;
+      currencyCode: string;
+    };
+    buyLink: string;
+    offers?: Array<{
+      finskyOfferType: number;
+      listPrice: {
+        amountInMicros: number;
         currencyCode: string;
       };
-      retailPrice?: {
-        amount: number;
+      retailPrice: {
+        amountInMicros: number;
         currencyCode: string;
       };
-      buyLink: string;
-      offers?: Array<{
-        finskyOfferType: number;
-        listPrice: {
-          amountInMicros: number;
-          currencyCode: string;
-        };
-        retailPrice: {
-          amountInMicros: number;
-          currencyCode: string;
-        };
-        giftable: boolean;
-      }>;
+      giftable: boolean;
+    }>;
+  };
+  accessInfo: {
+    country: string;
+    viewability: string;
+    embeddable: boolean;
+    publicDomain: boolean;
+    textToSpeechPermission: string;
+    epub: {
+      isAvailable: boolean;
+      acsTokenLink?: string;
     };
-    accessInfo: {
-      country: string;
-      viewability: string;
-      embeddable: boolean;
-      publicDomain: boolean;
-      textToSpeechPermission: string;
-      epub: {
-        isAvailable: boolean;
-        acsTokenLink?: string;
-      };
-      pdf: {
-        isAvailable: boolean;
-        acsTokenLink?: string;
-      };
-      webReaderLink: string;
-      accessViewStatus: string;
-      quoteSharingAllowed: boolean;
+    pdf: {
+      isAvailable: boolean;
+      acsTokenLink?: string;
     };
-  }>;
+    webReaderLink: string;
+    accessViewStatus: string;
+    quoteSharingAllowed: boolean;
+  };
 };
 
 export type history = {
@@ -198,7 +213,7 @@ export type user = {
   type: string;
   EDId: string | undefined;
   authType: string;
-  books: Array<book>;
+  books: Array<article>;
   history: article<history>;
   loans: Array<demand>;
   comments: Array<comment>;

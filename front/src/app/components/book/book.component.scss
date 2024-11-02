@@ -2,8 +2,8 @@ a {
     all: unset;
     cursor: pointer;
 }
-
 .bookCard {
+    margin-bottom: 8px;
     display: flex;
     justify-content:space-between;
     align-items: center;
@@ -30,7 +30,7 @@ a {
 }
 
 .col .img {
-    object-fit: cover;
+    object-fit:contain;
     width: 240px;
     height: 192px;
 }

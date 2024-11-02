@@ -12,7 +12,7 @@
     </mat-form-field>
     <mat-form-field>
         <mat-label>Enter your password</mat-label>
-        <input matInput required formControlName="password" [type]="hide() ? 'password' : 'text'" />
+        <input matInput required formControlName="password" [type]="hide() ? 'password' : 'text'"  autocomplete="off"/>
         <button
         class="vBtn"
           mat-icon-button
@@ -25,8 +25,30 @@
         </button>
       </mat-form-field>
 
+      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box ">
+          <button class="itemBtn" mat-button cdkDragDisabled="true" (click)="openSecondDialog()" type="button">Ajouter des livres <mat-icon>add</mat-icon></button>
+  
+        </div>
+        @for (book of books; track book.id) {
+          <div class="example-box" cdkDrag>
+            <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+            <div class="bookItem"><span>
+              {{book.volumeInfo.title}}     
+            </span>     
+              <button type="button" (click)="removeBook(book)"
+                mat-icon-button
+              >
+                <mat-icon>delete</mat-icon>
+              </button></div>
+  
+          </div>
+        }
+      </div>
+
     <mat-checkbox formControlName="isRelogin">Se souvenir de moi</mat-checkbox>
 
+    
     <button mat-flat-button type="submit">Connexion</button>
   </form>
 </div>

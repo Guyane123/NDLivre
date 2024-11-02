@@ -5,7 +5,7 @@ import {
   RouterModule,
   RouterLink,
 } from '@angular/router';
-import { article, book } from '../../../types';
+import { article, book, googleApiBook } from '../../../types';
 import { findArticle } from '../../../utils/mockedVariables';
 import { BookService } from '../../services/book.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,13 +17,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { Location } from '@angular/common';
-import {
-  MatSnackBar,
-  MatSnackBarAction,
-  MatSnackBarActions,
-  MatSnackBarLabel,
-  MatSnackBarRef,
-} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   MatBottomSheet,
   MatBottomSheetModule,
@@ -31,6 +25,7 @@ import {
 } from '@angular/material/bottom-sheet';
 import { NavComponent } from '../../components/nav/nav.component';
 import { GoBackComponent } from '../../components/go-back/go-back.component';
+import { snackBarComponent } from '../../components/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-article',
@@ -48,6 +43,7 @@ import { GoBackComponent } from '../../components/go-back/go-back.component';
     RouterModule,
     NavComponent,
     GoBackComponent,
+    snackBarComponent,
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.scss',
@@ -58,7 +54,7 @@ export class BookDetailsComponent implements OnInit {
 
   id: string | undefined;
   article: article | undefined;
-  book: book | undefined;
+  book: googleApiBook | undefined;
   bookService = new BookService();
 
   openSnackBar() {
@@ -66,6 +62,7 @@ export class BookDetailsComponent implements OnInit {
       duration: 1000,
       verticalPosition: 'top',
       horizontalPosition: 'center',
+      data: 'Vous avez likez cet article.',
     });
   }
 
@@ -85,7 +82,7 @@ export class BookDetailsComponent implements OnInit {
     this.openBottomSheet();
   }
 
-  toDate(date: Date) {
+  toDate(date: Date | string) {
     return new Date(date).toString();
   }
 
@@ -105,21 +102,6 @@ export class BookDetailsComponent implements OnInit {
   }
 }
 
-@Component({
-  selector: 'snack-bar',
-  templateUrl: 'snack-bar.html',
-  styleUrl: './article.component.scss',
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatSnackBarLabel,
-    MatSnackBarActions,
-    MatSnackBarAction,
-  ],
-})
-export class snackBarComponent {
-  snackBarRef = inject(MatSnackBarRef);
-}
 
 @Component({
   selector: 'bottom-sheet',

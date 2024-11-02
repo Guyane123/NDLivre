@@ -1,1 +1,33 @@
-<p>user works!</p>
+<app-nav>
+    <app-go-back></app-go-back>
+</app-nav>
+
+<div class="head">
+    <img class="avatar" [src]="user.image" alt="">
+    {{user.pseudonym}}
+</div>
+
+<mat-tab-group>
+    <mat-tab label="Bibliothéque"> 
+        <app-books>
+
+            @for (b of user.books; track b.id) {
+                <app-book display="col" [article]="b"></app-book>
+            }
+        </app-books>
+
+
+<mat-paginator #paginator
+class="paginator"
+page="1"
+[length]=""
+[pageSize]="5"
+[pageIndex]="0"
+aria-label="Select page">
+</mat-paginator>
+
+     </mat-tab>
+    <mat-tab label="Commentaires "> Commentaires </mat-tab>
+    <mat-tab label="Historiques des prêts"> Historiques des prêts </mat-tab>
+  </mat-tab-group>
+  

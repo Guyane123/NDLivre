@@ -29,6 +29,15 @@ import {
 } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AddBooksDialogComponent } from '../../components/add-books-dialog/add-books-dialog.component';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDragPlaceholder,
+  CdkDropList,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import { book, googleApiBook } from '../../../types';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +49,9 @@ import { Router } from '@angular/router';
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
+    CdkDrag,
+    CdkDropList,
+    CdkDragPlaceholder,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -53,6 +65,8 @@ export class LoginComponent {
     isRelogin: new FormControl(),
   });
 
+  books: Array<googleApiBook> = [];
+
   readonly dialog = inject(MatDialog);
   readonly answear = signal('');
 
@@ -63,7 +77,6 @@ export class LoginComponent {
       exitAnimationDuration: '200ms',
       data: qcm,
     });
-
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       if (result !== undefined) {
@@ -76,6 +89,32 @@ export class LoginComponent {
         });
       }
     });
+  }
+
+  removeBook(book: googleApiBook) {
+    const booksWithoutRemovedBooks: Array<googleApiBook> = [];
+    this.books.map((b) => {
+      if (b.id !== book.id) booksWithoutRemovedBooks.push(b);
+    });
+    this.books = booksWithoutRemovedBooks;
+  }
+  openSecondDialog() {
+    const secondDialogRef = this.dialog.open(AddBooksDialogComponent, {
+      width: '100vw',
+      height: '100vh',
+      maxHeight: '100vh',
+      maxWidth: '100vw',
+      enterAnimationDuration: '300ms',
+      exitAnimationDuration: '200ms',
+      panelClass: 'full-screen-dialog',
+    });
+    secondDialogRef.afterClosed().subscribe((result) => {
+      this.books = [...result];
+    });
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.books, event.previousIndex, event.currentIndex);
   }
 
   async login() {
