@@ -1,0 +1,28 @@
+.container {
+  position: relative;
+  height: 500px;
+  overflow-x: hidden;
+  width: 100%;
+}
+.articles {
+  width: 1000%;
+  display: flex;
+  position: absolute;
+  transform: translateX(-100px);
+  transition: all 1s ease;
+}
+
+.btns {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+.forward {
+  position: absolute;
+  right: 16px;
+}
+.back {
+  position: absolute;
+  left: 16px;
+}

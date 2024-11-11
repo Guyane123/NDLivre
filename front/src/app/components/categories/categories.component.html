@@ -1,0 +1,10 @@
+<div class="categories">
+  @for (c of categories; track c.name) {
+    <div class="container"><app-category [name]="c.nom" [color]="c.color" [icon]="c.icon"></app-category></div>
+
+
+  }
+
+
+</div>
+
