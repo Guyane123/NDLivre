@@ -206,6 +206,10 @@ export type history = {
   date: Date;
   target: user;
 };
+
+export declare module 'colorthief';
+
+
 export type user = {
   pseudonym: string;
   image: string | undefined;

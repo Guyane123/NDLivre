@@ -14,12 +14,13 @@ export async function fetchData(link: string) {
 export function getBookThumbnail(book: googleApiBook) {
   const { smallThumbnail, thumbnail, small, extraLarge, large, medium } =
     book.volumeInfo.imageLinks;
-  if (thumbnail) return thumbnail;
-  if (smallThumbnail) return smallThumbnail;
-  if (small) return small;
-  if (medium) return medium;
-  if (large) return large;
-  if (extraLarge) return extraLarge;
+  let choice: string = '';
+  if (thumbnail) choice = thumbnail;
+  if (smallThumbnail) choice = smallThumbnail;
+  if (small) choice = small;
+  if (medium) choice = medium;
+  if (large) choice = large;
+  if (extraLarge) choice = extraLarge;
 
-  return '';
+  return choice;
 }

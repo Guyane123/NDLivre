@@ -37,6 +37,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
+import {MatCardTitle} from "@angular/material/card";
+import {ProfileComponent} from "../profile/profile.component";
 
 @Component({
   selector: 'app-nav-bar',
@@ -57,6 +59,8 @@ import { RouterLink } from '@angular/router';
     MatToolbarModule,
     MatListModule,
     RouterLink,
+    MatCardTitle,
+    ProfileComponent,
   ],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
@@ -104,7 +108,7 @@ export class NavBarComponent implements OnDestroy {
   }
 
   displayBookTitle(book: googleApiBook) {
-    return book.volumeInfo.title;
+    return book ? book.volumeInfo.title : '';
   }
   async handleChange(e: Event) {
     this.change.emit(this.searchControl.value!);

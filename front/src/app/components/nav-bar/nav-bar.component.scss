@@ -2,36 +2,45 @@ nav {
     all:unset
 }
 .searchbar {
-    width: 100%;
+  position: sticky;
+  width: 100%;
+  top:0px;
+  z-index: 4;
 }
 
+.title {
+  margin: 8px 4px;
 
+}
+.title-container {
+  display: flex;
+  align-items: center;
+}
 .toolbar {
+  position: sticky;
+  box-sizing: border-box;
+  align-items: flex-start;
+  margin-top: -48px;
+  margin-bottom: 64px;
     display: flex;
-    position: fixed;
+    flex-direction: column;
     z-index: 4;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
   }
 
 
   .example-is-mobile .example-toolbar {
-    position: fixed;
     /* Make sure the toolbar will stay on top of the content as it scrolls past. */
     z-index: 2;
   }
-  
-  
+
+
   .example-sidenav-container {
-    position: fixed ;
     left: 0;
     /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
        causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
     flex: 1;
   }
-  
+
   .example-is-mobile .example-sidenav-container {
     /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
        `<body>` to be our scrolling element for mobile layouts. */
@@ -39,11 +48,57 @@ nav {
   }
 
   .listItem {
+    text-align: center;
+    font-size: 16px;
     display: flex;
     align-items: center;
-    
+    flex-direction: column;
+
+
   }
 
   mat-icon {
     margin-right: 8px;
   }
+
+  a {
+    all: unset;
+    cursor: pointer;
+  }
+.bottomToolbar  {
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  padding: 8px;
+  position: fixed;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  height: 64px;
+}
+
+.mat-icon.small {
+  font-size: 16px;
+  height: 16px;
+  width: 16px;
+}
+
+.mat-icon.medium {
+  font-size: 24px;  /* Taille par défaut */
+  height: 24px;
+  width: 24px;
+}
+
+.mat-icon {
+  margin-right: 0;
+  font-size: 32px;
+  height: 32px;
+  width: 32px;
+}
+
+.mat-icon.xlarge {
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+}

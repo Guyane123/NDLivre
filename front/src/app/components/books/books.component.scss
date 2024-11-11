@@ -4,3 +4,24 @@
     flex-direction: column;
     
 }
+
+.cdk-virtual-scroll-data-source-example .example-viewport {
+    height: 500px;
+    overflow-y:hidden;
+    width: 100%;
+    border: 1px solid black;
+
+  }
+  
+  .cdk-virtual-scroll-data-source-example .example-viewport .cdk-virtual-scroll-content-wrapper {
+    display: flex;
+
+    flex-direction: row;
+  }
+  
+  .cdk-virtual-scroll-data-source-example .example-item {
+    margin-right: 32px;
+    height: 100%;
+    writing-mode: vertical-lr;
+  }
+  

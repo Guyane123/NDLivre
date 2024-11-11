@@ -8,8 +8,11 @@ a {
     justify-content:space-between;
     align-items: center;
     max-width: 300px;
+    min-width: 300px;
     width: 100%;
     height: 100%;
+    margin-right: 32px;
+    padding: 16px;
 }
 .col {
     max-width: none;
@@ -44,5 +47,5 @@ a {
 }
 
 .snackBarContainer, .c {
-    margin-bottom: 200px !important; 
+    margin-bottom: 200px !important;
 }

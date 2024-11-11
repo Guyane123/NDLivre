@@ -9,7 +9,7 @@
       } 
       @else {
         
-        <img mat-card-image class="img" [src]="book.volumeInfo.imageLinks.smallThumbnail" >
+        <img mat-card-image #img (load)="handleImageLoad()" class="img"[src]="book.volumeInfo.imageLinks.thumbnail" >
 
         <div class="info">
           <mat-card-header>

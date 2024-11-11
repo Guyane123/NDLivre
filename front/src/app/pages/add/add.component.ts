@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class AddComponent {
   public href: string = '';
 
-  googleLink = `https://accounts.google.com/o/oauth2/auth?client_id=${'ERROR'}&redirect_uri=${
+  googleLink = `https://accounts.google.com/o/oauth2/auth?client_id=${'920323441665-igts9i5p5s2bek0p9a7uhm4metoj1m4b.apps.googleusercontent.com'}&redirect_uri=${
     this.href ? this.href : 'http:/localhost:4200'
   }&response_type=token&scope=https://www.googleapis.com/auth/books`;
   isDisabled = true;

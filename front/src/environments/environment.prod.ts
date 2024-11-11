@@ -1,8 +1,8 @@
 export const api = {
-    production: true,
-    apiUrl: 'http://localhost:3000',
-    debugMode: false,
-  };
+  production: true,
+  apiUrl: 'http://localhost:4000',
+  debugMode: false,
+};
 
 export const ED = {
     production: true,

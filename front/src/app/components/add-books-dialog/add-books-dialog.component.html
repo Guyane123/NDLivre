@@ -4,7 +4,7 @@
     </button>
 </app-nav>
 
-<div class="container">
+<div class="container"  >
     <div mat-dialog-title class="head">
         <mat-form-field>
             <mat-label>Rechercher des livres</mat-label>
@@ -14,6 +14,7 @@
               placeholder="Titre"
               [formControl]="controler"
             />
+azé"
           </mat-form-field>
           @if(mobileQuery.matches) {
             <button mat-flat-button (click)="showBarcodeScanner()"><mat-icon>codebar</mat-icon>Scanner codebar</button>
@@ -24,6 +25,11 @@
           ></barcode-scanner-livestream>
           }
     </div>
+  <div>
+
+
+
+  </div>
     <mat-dialog-content class="mat-dialog-content">
         @for (book of books; track book.id) {
             <div class="book">

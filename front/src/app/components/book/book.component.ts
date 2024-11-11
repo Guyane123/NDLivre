@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { article, book, EDUser, googleApiBook, user } from '../../../types';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -6,6 +14,8 @@ import { BookService } from '../../services/book.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
 import { mockedArticle } from '../../../utils/mockedVariables';
+import { ColorThiefService } from '../../services/colorthief.service';
+import { getBookThumbnail } from '../../../utils/utils';
 
 @Component({
   selector: 'app-book',
@@ -23,6 +33,9 @@ export class BookComponent implements OnInit {
   @Input() article: article = mockedArticle;
   @Input() display: 'col' | 'card' = 'col';
   @Output() load: EventEmitter<googleApiBook> = new EventEmitter();
+  @ViewChild('img') img!: ElementRef<HTMLImageElement>;
+
+  getBookThumbnail = getBookThumbnail;
 
   user = this.article?.user;
 
@@ -41,4 +54,6 @@ export class BookComponent implements OnInit {
       })
       .catch((err) => console.log(err));
   }
+
+  handleImageLoad() {}
 }

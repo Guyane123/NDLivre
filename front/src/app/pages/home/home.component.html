@@ -2,8 +2,22 @@
 
 <app-nav-bar [articles]="articles" (change)="handleSearchChange($event)"></app-nav-bar>
 
-<app-books>
-    @for (a of articles; track a.id) {
-        <app-book (load)="handleBookLoad($event)" [article]="a"></app-book>
-    }
+
+<app-section title="Livres">
+  <app-carrousel [articles]="articles">
+
+  </app-carrousel>
+</app-section>
+
+<app-section title="Livres">
+  <app-books>
+  @for (a of articles; track a.id) {
+    <app-book (load)="handleBookLoad($event)" [article]="a" option display="col"></app-book>
+  }
 </app-books>
+</app-section>
+
+<app-section title="Catégories">
+  <app-categories></app-categories>
+</app-section>
+

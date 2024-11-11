@@ -6,14 +6,33 @@ import { member } from '../../types';
   providedIn: 'root',
 })
 export class EcoleDirectService {
-  async getUser(id: string) {
-
-
+  async getEtablissement() {
     const token = sessionStorage.getItem('credentials');
 
     if (!token) return;
 
-    const user: Promise<member> = await(
+    const etablissement: Promise<member> = await (
+      await fetch(ED.apiUrl + `/classes/24/`, {
+        headers: {
+          'User-Agent': navigator.userAgent,
+          'X-Token': token,
+          'Access-Control-Allow-Origin': '*',
+        },
+        method: 'POST',
+        body: 'data=' + JSON.stringify({}),
+      })
+    ).json();
+
+    console.log(etablissement);
+
+    return etablissement;
+  }
+  async getUser(id: string) {
+    const token = sessionStorage.getItem('credentials');
+
+    if (!token) return;
+
+    const user: Promise<member> = await (
       await fetch(
         ED.apiUrl + `/v3/eleves/${id}/details.awp?verbe=get&v=4.65.0`,
         {

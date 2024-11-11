@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
-import balancesRouter from "./routes/balances.js"
+
 import connectDB from './db/db.js';
 
 dotenv.config()
@@ -26,7 +26,6 @@ app.use(cookieParser());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/balances', balancesRouter);
 
 // connect to MongoDB
 connectDB()
@@ -48,3 +47,21 @@ app.use(function(err, req, res, next) {
 });
 
 export default app;
+
+app.get('/proxy', (req, res) => {
+  const imageUrl = req.query.url;
+  request(
+    { url: imageUrl, encoding: null }, // "encoding: null" to keep the image in binary format
+    (error, response, body) => {
+      if (!error && response.statusCode === 200) {
+        res.set('Content-Type', response.headers['content-type']);
+        res.set('Access-Control-Allow-Origin', '*'); // Add CORS header
+        res.send(body);
+      } else {
+        res.status(500).send('Error fetching image');
+      }
+    }
+  );
+});
+
+app.listen(3000, () => console.log('Proxy server running on port 3000'));

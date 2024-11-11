@@ -1,6 +1,9 @@
 
     <mat-toolbar class="toolbar">
-        <button mat-icon-button (click)="snav.toggle()" fxShow="true" fxHide.gt-sm><mat-icon>menu</mat-icon></button>
+      <div class="title-container">
+        <a [routerLink]="['/user',1]" ><app-profile imageLink="https://thispersondoesnotexist.com/"></app-profile></a>
+        <h1 class="title">Rechercher</h1>
+      </div>
         <form class="searchbar">
             <mat-form-field subscriptSizing="dynamic" class="searchbar">
                 <mat-label>Rechercher</mat-label>
@@ -20,23 +23,15 @@
               </mat-form-field>
         </form>
     </mat-toolbar>
-    <mat-sidenav-container class="example-sidenav-container" fxFlexFill
-                          [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-      <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
-                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
-        <mat-nav-list class="list">
-            <a (click)="snav.toggle()" mat-list-item></a>
-            <a [routerLink]="['/user',1]" mat-list-item><div class="listItem"><mat-icon>person</mat-icon><span>Profil</span></div></a>
-            <a href="#"  mat-list-item><div class="listItem"><mat-icon>notifications</mat-icon><span>Notification</span></div></a>
-            <a href="#"  mat-list-item><div class="listItem"><mat-icon>favorite</mat-icon><span>Favoris</span></div></a>
-            <a href="#" mat-list-item><div class="listItem"><mat-icon>history</mat-icon><span>Historique</span></div></a>
-            <a href="#" [routerLink]="['/add']" mat-list-item><div class="listItem"><mat-icon>add_circle</mat-icon><span>Ajouter des livres</span></div></a>
-        </mat-nav-list>
-      </mat-sidenav>
 
-      <mat-sidenav-content>
+    <mat-toolbar class="bottomToolbar">
+        <a href="#"  mat-list-item><div class="listItem"><mat-icon>home</mat-icon><span>Accueil</span></div></a>
+      <a href="#" [routerLink]="['/add']" mat-list-item><div class="listItem"><mat-icon>add_circle</mat-icon><span>Publier</span></div></a>
+        <a href="#"  mat-list-item><div class="listItem"><mat-icon>shelves</mat-icon><span>Bibliothèque</span></div></a>
 
-      </mat-sidenav-content>
-    </mat-sidenav-container>
-    
+
+
+
+    </mat-toolbar>
+
 
