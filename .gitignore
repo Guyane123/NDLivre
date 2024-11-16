@@ -46,7 +46,8 @@ testem.log
 Thumbs.db
 
 # Sensible files
-
+/back/*.env
+back/.env
 *.env
 */constants.ts
 */constats
