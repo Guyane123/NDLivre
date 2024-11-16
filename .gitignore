@@ -48,4 +48,5 @@ Thumbs.db
 # Sensible files
 
 *.env
-/
+*/constants.ts
+*/constats

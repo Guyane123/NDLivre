@@ -6,10 +6,10 @@
 
     @if (!book) {
       <mat-spinner class="spinner"></mat-spinner>
-      } 
+      }
       @else {
-        
-        <img mat-card-image #img (load)="handleImageLoad()" class="img"[src]="book.volumeInfo.imageLinks.thumbnail" >
+
+        <img mat-card-image #img (load)="handleImageLoad()" class="img"[src]="getBookThumbnail(book)" >
 
         <div class="info">
           <mat-card-header>
@@ -22,9 +22,9 @@
           </mat-card-content>
         </div>
 
-    
-    
-        
+
+
+
 
       }
 

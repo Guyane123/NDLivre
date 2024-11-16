@@ -8,8 +8,7 @@
   width: 1000%;
   display: flex;
   position: absolute;
-  transform: translateX(-100px);
-  transition: all 1s ease;
+  transition: transform 1s ease;
 }
 
 .btns {
@@ -25,4 +24,15 @@
 .back {
   position: absolute;
   left: 16px;
+}
+
+
+@media screen and (max-width: 800px) {
+  .btns {
+    display: none;
+
+  }
+  .articles {
+    transition: none;
+  }
 }

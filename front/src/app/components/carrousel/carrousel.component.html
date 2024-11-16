@@ -1,12 +1,13 @@
 <div class="container">
-  <div class="articles" [style]="'transform: translateX(' + transformX + 'px)'">
+  <div class="articles" #articlesContainer>
     @for (a of articles; track a.id) {
       <app-book [article]="a" display="card"></app-book>
     }
+
   </div>
 
   <div class="btns">
-    <button class="back"  mat-mini-fab [disabled]="isBackDesactivate" (click)="slideGoBack()"><mat-icon>arrow_back_ios</mat-icon></button>
-    <button class="forward"  mat-mini-fab [disabled]="IsForwardDesactivate" (click)="slideGoForward()"><mat-icon>arrow_forward_ios</mat-icon></button>
+    <button class="back"  mat-mini-fab [disabled]="isBackDesactivate" (click)="slideBackward()"><mat-icon>arrow_back_ios</mat-icon></button>
+    <button class="forward"  mat-mini-fab [disabled]="IsForwardDesactivate" (click)="slideForward()"><mat-icon>arrow_forward_ios</mat-icon></button>
   </div>
 </div>
