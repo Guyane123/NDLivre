@@ -13,8 +13,6 @@ export class AuthService {
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.userService.findByEmail(email);
     if (user && (await bcrypt.compare(pass, user.password))) {
-      // Comparing hashed password.
-      // Remove password before returning. Don't send it to the client.
       const { password, ...result } = user;
       return result;
     }
@@ -38,9 +36,38 @@ export class AuthService {
       email: profile.email,
       pseudo: profile.displayName,
       image: profile.picture || null,
+      name: profile.given_name,
+      firstName: profile.family_name,
 
       // Any other relevant fields from Google profile
     });
+    return newUser;
+  }
+
+  async findOrCreateAzureUser(
+    profile: any,
+    accesToken: string,
+    refreshToken: string,
+  ): Promise<any> {
+    const existingUser = await this.userService.findByEmail(profile.email);
+
+    if (existingUser) {
+      return existingUser;
+    }
+
+    const jwtPayload = {
+      sub: profile.sub, // User ID
+      // other claims as needed
+    };
+
+    const newUser = await this.userService.create({
+      email: profile.email,
+      pseudo: profile.name || profile.displayName || null,
+      image: profile.picture || null,
+      name: profile.given_name,
+      firstName: profile.family_name,
+    });
+
     return newUser;
   }
 

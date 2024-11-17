@@ -3,25 +3,41 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 import { AuthService } from './auth.service';
 import Google from 'passport-google-oauth2';
-import AzureAdOAuth2Strategy from 'passport-azure-ad-oauth2';
+import AzureAdStrategy, {
+  BearerStrategy,
+  OIDCStrategy,
+} from 'passport-azure-ad';
 // ... other imports
 
 @Injectable()
-export class AzureStrategy extends PassportStrategy(
-  AzureAdOAuth2Strategy as any,
-) {
+export class AzureStrategy extends PassportStrategy(OIDCStrategy, 'azure') {
   constructor(private authService: AuthService) {
     super({
-      CLIENT_ID: process.env.AZURE_CLIENT_ID,
-      CLIENT_SECRET: process.env.AZURE_CLIENT_ID,
+      identityMetadata: `https://login.microsoftonline.com/${process.env.AZURE_TENANT_ID}/v2.0/.well-known/openid-configuration`,
+      clientID: process.env.AZURE_CLIENT_ID,
+      clientSecret: process.env.AZURE_CLIENT_ID,
+      responseType: 'code',
+      responseMode: 'query', // Or 'form_post'
+      redirectUrl: 'http://localhost:3000/auth/callback/azure',
+      scope: ['User.Read'],
+      allowHttpForRedirectUrl: process.env.NODE_ENV === 'development', // Be cautious with this!
     });
   }
 
-  async validate(email, password): Promise<any> {
-    const user = await this.authService.validateUser(email, password); // Implement this method in AuthService
+  async validate(
+    profile: any,
+    accesToken: string,
+    refreshToken: string,
+  ): Promise<any> {
+    const user = await this.authService.findOrCreateAzureUser(
+      profile,
+      accesToken,
+      refreshToken,
+    ); // Implement this method in AuthService
     if (!user) {
       return new UnauthorizedException(); // Or throw an exception if you prefer
     }
+
     return user;
   }
 }

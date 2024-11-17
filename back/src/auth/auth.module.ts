@@ -24,8 +24,8 @@ import { AzureStrategy } from './azure.strategy';
   //GUARD ALL ROUTES (use @Public())
   //providers: [AuthService, { provide: APP_GUARD, useClass: AuthGuard }],
   //PUBLIC ALL ROUTES(use useGuards(AuthGuard))
-  providers: [AuthService],
+  providers: [AuthService, LocalStrategy, AzureStrategy],
   controllers: [AuthController],
-  exports: [AuthService],
+  exports: [AuthService, LocalStrategy],
 })
 export class AuthModule {}

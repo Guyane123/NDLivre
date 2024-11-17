@@ -39,6 +39,7 @@ import { Comment, CommentSchema } from './comment/comment.schema';
 import { History, HistorySchema } from './history/history.schema';
 import { View, ViewSchema } from './view/view.schema';
 import { GoogleStrategy } from './google.strategy';
+import { SessionController } from './session/session.controller';
 
 @Module({
   imports: [
@@ -76,6 +77,7 @@ import { GoogleStrategy } from './google.strategy';
     LoanController,
     ViewController,
     ArchivesController,
+    SessionController,
   ],
   providers: [
     AppService,

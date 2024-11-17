@@ -1,12 +1,15 @@
 import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import passport from 'passport';
+import { LocalGuard } from './local.guard';
+import { AzureGuard } from './azure.guard';
 
 @Controller('auth')
 export class AuthController {
   // ...
 
-  @Post('login')
-  //@UseGuards(AuthGuard('local')) // Local login route
+  @Get('login')
+  @UseGuards(AuthGuard('local')) // Local login route
   localLogin(@Req() req) {
     return req.user; // req.user will contain the authenticated user.
   }
@@ -15,9 +18,10 @@ export class AuthController {
   @UseGuards(AuthGuard('google'))
   async googleAuth(@Req() req) {}
 
-  @Get('google/redirect')
+  @Get('callback/google')
   @UseGuards(AuthGuard('google'))
   googleAuthRedirect(@Req() req) {
+    passport.authenticate('google', { failureRedirect: '/login' });
     return { message: 'Google login successful', user: req.user };
   }
 
@@ -29,9 +33,10 @@ export class AuthController {
   @UseGuards(AuthGuard('azure'))
   async azureAuth(@Req() req) {}
 
-  @Get('azure/redirect')
+  @Get('callback/azure')
   @UseGuards(AuthGuard('azure'))
   azureAuthRedirect(@Req() req) {
+    passport.authenticate('azure_ad_oauth2', { failureRedirect: '/login' });
     return { message: 'Azure login successful', user: req.user };
   }
 
