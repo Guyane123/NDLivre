@@ -17,12 +17,14 @@
 azé"
           </mat-form-field>
           @if(mobileQuery.matches) {
-            <button mat-flat-button (click)="showBarcodeScanner()"><mat-icon>codebar</mat-icon>Scanner codebar</button>
+            <button mat-flat-button><mat-icon>codebar</mat-icon>Scanner codebar</button>
             <barcode-scanner-livestream
-            [hidden]="!isHidden"
-            type="code_128"
-            (valueChanges)="handleValueChange($event)"
-          ></barcode-scanner-livestream>
+              type="code_128"
+              (valueChanges)="onValueChanges($event)"
+            ></barcode-scanner-livestream>
+            <div [hidden]="!barcodeValue">
+              {{ barcodeValue }}
+            </div>
           }
     </div>
   <div>

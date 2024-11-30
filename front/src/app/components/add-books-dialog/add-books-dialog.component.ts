@@ -69,7 +69,8 @@ export class AddBooksDialogComponent {
   isHidden: boolean = true;
   private _snackBar = inject(MatSnackBar);
 
-  barcodeValue = '';
+  //barcodeValue = '';
+  barcodeValues: Array<string> = []
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 
@@ -77,24 +78,36 @@ export class AddBooksDialogComponent {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
-  async handleValueChange(result: any) {
+  /*async handleValueChange(result: any) {
     this.barcodeValue = result.codeResult.code;
+    this.barcodeValues.push(result.codeResult.code);
     const book = await this.bookService.getBook(this.barcodeValue);
     this.books.push(book);
     this.barcodeScanner?.stop();
     this.dialogRef.close(this.books);
     this.isHidden = true;
-  }
+  }*/
 
-  showBarcodeScanner() {
-    this.barcodeScanner?.start();
-    this.isHidden = false;
-  }
+
   getBookThumbnail = getBookThumbnail;
 
-  @ViewChild(BarcodeScannerLivestreamComponent) barcodeScanner:
-    | BarcodeScannerLivestreamComponent
-    | undefined;
+  @ViewChild(BarcodeScannerLivestreamComponent)
+  barcodeScanner!: BarcodeScannerLivestreamComponent;
+
+  barcodeValue = "";
+
+  ngAfterViewInit() {
+    this.barcodeScanner.start();
+  }
+
+  onValueChanges(result: any) {
+    this.barcodeValue = result.codeResult.code;
+  }
+
+  onStarted(started: any) {
+    console.log(started);
+  }
+
 
   constructor() {
     const changeDetectorRef = inject(ChangeDetectorRef);
@@ -112,6 +125,7 @@ export class AddBooksDialogComponent {
   handleClose() {
     this.dialogRef.close();
   }
+
 
   async handleInput() {
     console.log(this.controler.value);

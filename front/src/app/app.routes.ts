@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { LoanComponent } from './pages/loan/loan.component';
 import { UserComponent } from './components/user/user.component';
 import { AddComponent } from './pages/add/add.component';
+import {SearchComponent} from "./pages/search/search.component";
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,4 +17,5 @@ export const routes: Routes = [
   { path: 'notification/:id', component: UserComponent },
   { path: 'notifications', component: UserComponent },
   { path: 'add', component: AddComponent },
+  { path: 'search', component: SearchComponent },
 ];

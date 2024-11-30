@@ -6,3 +6,30 @@
     <mat-icon>google</mat-icon> Synchroniser avec Google Livre
   </button>
 </div>
+
+
+<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+  <div class="example-box ">
+    <button class="itemBtn" mat-button cdkDragDisabled="true" (click)="openSecondDialog()" type="button">Ajouter des livres <mat-icon>add</mat-icon></button>
+
+  </div>
+  @for (book of books; track book.id) {
+    <div class="example-box" cdkDrag>
+      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+      <div class="bookItem"><span>
+              {{book.volumeInfo.title}}
+            </span>
+        <button type="button" (click)="removeBook(book)"
+                mat-icon-button
+        >
+          <mat-icon>delete</mat-icon>
+        </button></div>
+
+    </div>
+  }
+
+  @if (books.length > 0) {
+    <button class="itemBtn" mat-button cdkDragDisabled="true" (click)="sendBooks()" type="button">Publier<mat-icon>send</mat-icon></button>
+  }
+
+</div>
